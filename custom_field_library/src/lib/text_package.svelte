@@ -32889,6 +32889,25 @@ let valueCount = 1;
 let cropId = '52';
 let packageId = '45';
 let isChecked = "";
+
+function validateIschecked(valueCount , customfieldData, optionName) {
+    isChecked = "";
+    if(valueCount){
+        customfieldData.value[valueCount].map(check=>{
+            if(check == optionName){
+                isChecked = 'yes';
+            }
+        })
+    }else{
+        customfieldData.default_value.map(val=>{
+            if(val == optionName){
+                isChecked = 'yes';
+            }
+        })
+    }
+   return isChecked
+    
+}
 </script>
 
 <div class='crop-form'>
@@ -32935,26 +32954,8 @@ let isChecked = "";
             <div class="fields">
                 <div class="fields-name">{customfieldData.help_text}<label>{customfieldData.required ? '*' : ''}</label></div>
                 {#each customfieldData.options as option}
-                    {#if valueCount}
-                         {#each customfieldData.value[valueCount] as check}
-                            {#if check == option.name}
-                                {isChecked = 'yes'}
-                            {:else}
-                                {isChecked = ''}
-                            {/if}
-                         {/each}
-                    {:else}
-                        {#each customfieldData.default_value as val}
-                            {#if check == option.name}
-                                {isChecked = 'yes'}
-                            {:else}
-                                {isChecked = ''}
-                            {/if}
-                        {/each}
-                    {/if}
-                    <div class="checkbox-field"><input type="checkbox" checked="{isChecked}" name="{option.name}" value="{option.name}">
+                    <div class="checkbox-field"><input type="checkbox" checked="{validateIschecked(valueCount , customfieldData, option.name)}" name="{option.name}" value="{option.name}">
                     <label for="{option.name}">{option.name}</label><br></div>
-                    {isChecked = ''}
                 {/each}
                 <span data-valmsg-for="Fertilizer" data-valmsg-replace="true"></span>
             </div>
