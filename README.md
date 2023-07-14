@@ -1,58 +1,93 @@
-# create-svelte
+# customfield_svelte_components
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A reusable NPM module to generate form fields based on LabCore's `customfields` data structure.
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+The data structure for a LabCore `customfield` looks like this:
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+```json
+{
+	"id": 114,
+	"name": "Name of CustomField",
+	"value": [],
+	"default_value": "text of default",
+	"options": [
+		{
+			"name": "Option 1",
+			"ordering": 1
+		},
+		{
+			"name": "Option 2",
+			"ordering": 2
+		},
+		{
+			"name": "Option 3",
+			"ordering": 3
+		}
+	],
+	"ordering": 4,
+	"required": true,
+	"help_text": "Helpful prompt for this field",
+	"field_type": "R"
+}
 ```
 
-## Developing
+## Description
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+The keys in the JSON represent the following:
 
-```bash
-npm run dev
+- `id`: The primary key of the `CustomField` in the backend database
+- `name`: The name of the custom field. To be rendered as the `<label>` of the form field.
+- `field_type`: This can be `T` - text, `R` - radio, `C` - checkbox, `D` - date, `M`, date-time, `N` numeric or `U` user or `A` - textarea.
+- `required`: This is true or false, which can be used in form validation.
+- `help_text`: This is a prompt that can get displayed under the input as help text.
+- `options`: This is a list of objects, each containing the `name` and `ordering` of options. Options are required in the case of `radio`
+  and `checkbox`. If a `numeric` field has options, then the field is treated as a physical quantity input field, and the options are
+  considered to be units associated with the physical quantity. Options are ignored for other field types.
+- `value`: This is the current value of the field. When creating a form object, this is blank, but when editing, it may have a value.
+  This value is always a string (empty or otherwise), unless the `field_type` is a `C`, in which case it is an array of strings.
+- `default_value`: When rendering a form field, and the value is empty, this value should be used as the default input if present.
+  Follows the same rules as `value`.
+- `ordering` This defines the order in which form fields appear, and can be generally ignored, since the database will send the
+  fields in the proper ordering.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+## Usage
+
+Install this library using
+
+```
+npm i customfield_svelte_components
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+In your svelte LabCore project, you will get a data structure comprising of a list of fields like above. You can create a form with them using something like this on your svelte page:
 
-## Building
+```svelte
+<script>
+	import { CustomFieldForm } from 'customfield_svelte_components';
+</script>
 
-To build your library:
-
-```bash
-npm run package
+<div>
+	<form>
+		LCCustomFieldForm bind:formData>
+		<input type="submit" />
+	</form>
+</div>
 ```
 
-To create a production version of your showcase app:
+The svelte page is responsible for providing form tags and input submit buttons etc. The preferred way is to use form actions to submit the data to the server.
 
-```bash
-npm run build
-```
+Individual form fields may also be rendered independently for more control, like so:
 
-You can preview the production build with `npm run preview`.
+```svelte
+<script>
+    import { CustomFieldFormField } from 'customfield_svelte_components';
+</script>
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
+<div>
+    <form>
+        {#each formField in formData, (formField.id)}
+            LCCustomFieldFormField bind:formField>
+        {/each}
+        <input type="submit">
+    </form>
+</div>
 ```
