@@ -2,12 +2,10 @@
 	export let formField;
 	export let select = false;
 	export let groupClass = 'lc-cf-formfield';
-	export let inputClass = 'lc-cf-input';
 	$: componentClass = `controls lc-cf-component-${formField.field_type}`;
-	$: cfid = `lc-cf-${formField.pk}`;
-	$: cfname = `custom-field-${formField.pk}`;
-	$: required = formField.required == true;
-	$: inputType = ['T', 'D', 'M'].indexOf(formField.field_type) > -1;
+	$: cfid = `lc-cf-${formField.id}`;
+	$: cfname = `custom-field-${formField.id}`;
+	$: required = formField.required ? true : false;
 
 	const fieldTypes = {
 		T: 'text',
@@ -30,26 +28,26 @@
 		{formField.name}{formField.required ? '*' : ''}
 	</label>
 
-	{#if formField.field_type === 'T'}
-		<textarea id={cfid} class={inputClass} name={cfname} {required}>{formField.value}</textarea>
+	{#if formField.field_type === 'A'}
+		<textarea id={cfid} class={componentClass} name={cfname} {required}>{formField.value}</textarea>
 	{:else if ['T', 'D', 'M'].indexOf(formField.field_type) > -1}
 		<input
 			type={fieldTypes[formField.field_type]}
 			id={cfid}
-			class={inputClass}
+			class={componentClass}
 			name={cfname}
 			value={formField.value}
 			{onChange}
 			{required}
 		/>
-	{:else if ['R', 'C'].indexOf(formField.field_type) > -1 && !select}
+	{:else if ['R', 'C'].includes(formField.field_type) && !select}
 		{#each formField.options as option}
 			<label
 				><input
 					type={fieldTypes[formField.field_type]}
 					value={option.name}
-					checked={option.name === formField.value || formField.value.indexOf(option) > -1}
-					class={inputClass}
+					checked={option.name === formField.value || formField.value?.indexOf(option) > -1}
+					class={componentClass}
 					name={cfname}
 				/>{option.name}</label
 			>
@@ -64,7 +62,7 @@
 		<input
 			type="numeric"
 			id={cfid}
-			class={inputClass}
+			class={componentClass}
 			name={cfname}
 			value={formField.value}
 			{onChange}
