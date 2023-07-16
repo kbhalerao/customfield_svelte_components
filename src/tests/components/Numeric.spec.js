@@ -5,15 +5,15 @@ import { render, screen } from '@testing-library/svelte';
 import LCCustomFieldFormField from '../../lib/components/LCCustomFieldFormField.svelte';
 
 test('renders physical quantity input', () => {
-	const checkboxInput = {
+	const numericInput = {
 		id: 198,
-		name: 'Acres',
+		name: 'Nitrogen',
 		field_type: 'N',
 		help_text: '',
 		default_value: null,
 		options: [
-			{ ordering: 998, name: 'Tillable' },
-			{ ordering: 999, name: 'Non-tillable' }
+			{ ordering: 998, name: 'lb/ac' },
+			{ ordering: 999, name: 'kg/ha' }
 		],
 		required: true,
 		ordering: 999
@@ -21,7 +21,7 @@ test('renders physical quantity input', () => {
 
 	render(LCCustomFieldFormField, {
 		props: {
-			formField: checkboxInput
+			formField: numericInput
 		}
 	});
 
@@ -40,4 +40,34 @@ test('renders physical quantity input', () => {
 
 	const options = screen.getAllByRole('option');
 	expect(options.length).toBe(2);
+});
+
+test('renders physical quantity with value present', () => {
+	const numericInput = {
+		id: 198,
+		name: 'Nitrogen',
+		field_type: 'N',
+		help_text: '',
+		default_value: null,
+		options: [
+			{ ordering: 998, name: 'lb/ac' },
+			{ ordering: 999, name: 'kg/ha' }
+		],
+		required: true,
+		ordering: 999,
+		value: [140, 'lb/ac']
+	};
+
+	render(LCCustomFieldFormField, {
+		props: {
+			formField: numericInput
+		}
+	});
+
+	// Check that the element exists
+	const inputElement = screen.getByRole('textbox');
+	expect(inputElement).toHaveValue('140');
+
+	const unitSelector = screen.getByRole('combobox');
+	expect(unitSelector).toHaveValue('lb/ac');
 });

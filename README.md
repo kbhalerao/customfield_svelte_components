@@ -47,8 +47,7 @@ The keys in the JSON represent the following:
   - If the `field_type` is a `C`, we store an array of strings, which can be empty if no options are selected.
   - If the `field_type` is `N` and no options are present, we store it as a number
   - If the `field_type` is `N` and options are present (i.e. this is a physical quantity), then we store it as an array of a number and its units as a string, e.g. [45, 'lb/ac']
-- `default_value`: When rendering a form field, and the value is empty, this value should be used as the default input if present.
-  Follows the same rules as `value`.
+- `default_value`: When rendering a form field, and the value is empty, this value should be used as the default input if present. Follows the same rules as `value`, including the exceptions.
 - `ordering` This defines the order in which form fields appear, and can be generally ignored, since the database will send the
   fields in the proper ordering.
 

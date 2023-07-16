@@ -6,6 +6,17 @@
 	$: cfid = `lc-cf-${formField.id}`;
 	$: cfname = `custom-field-${formField.id}`;
 	$: required = formField.required ? true : false;
+	$: value = formField.value
+		? formField.value
+		: formField.default_value
+		? formField.default_value
+		: undefined;
+	$: numeric_value =
+		formField.field_type === 'N' && formField.options.length > 0 && value
+			? Number(value[0])
+			: undefined;
+	$: numeric_units =
+		formField.field_type === 'N' && formField.options.length > 0 && value ? value[1] : undefined;
 
 	const fieldTypes = {
 		T: 'text',
@@ -16,10 +27,6 @@
 		N: 'numeric',
 		U: 'user',
 		A: 'textarea'
-	};
-
-	const onChange = (e) => {
-		formField.value = e.target.value;
 	};
 </script>
 
@@ -37,7 +44,6 @@
 			class={componentClass}
 			name={cfname}
 			value={formField.value}
-			{onChange}
 			{required}
 		/>
 	{:else if ['R', 'C'].includes(formField.field_type) && !select}
@@ -64,14 +70,14 @@
 			id={cfid}
 			class={componentClass}
 			name={cfname}
-			value={formField.value}
-			{onChange}
+			value={numeric_value}
 			{required}
 		/>
 		{#if formField.options}
-			<select name={cfname} id={cfid} {required} multiple={formField.field_type === 'C'}>
+			<select name={cfname} id={cfid} required>
 				{#each formField.options as option}
-					<option value={option.name}>{option.name}</option>
+					<option value={option.name} selected={numeric_units === option.name}>{option.name}</option
+					>
 				{/each}
 			</select>
 		{/if}
