@@ -43,8 +43,10 @@ The keys in the JSON represent the following:
 - `options`: This is a list of objects, each containing the `name` and `ordering` of options. Options are required in the case of `radio`
   and `checkbox`. If a `numeric` field has options, then the field is treated as a physical quantity input field, and the options are
   considered to be units associated with the physical quantity. Options are ignored for other field types.
-- `value`: This is the current value of the field. When creating a form object, this is blank, but when editing, it may have a value.
-  This value is always a string (empty or otherwise), unless the `field_type` is a `C`, in which case it is an array of strings.
+- `value`: This is the current value of the field. When creating a form object, this is blank, but when editing, it may have a value. This value is always a string (empty or otherwise), with the following exceptions:
+  - If the `field_type` is a `C`, we store an array of strings, which can be empty if no options are selected.
+  - If the `field_type` is `N` and no options are present, we store it as a number
+  - If the `field_type` is `N` and options are present (i.e. this is a physical quantity), then we store it as an array of a number and its units as a string, e.g. [45, 'lb/ac']
 - `default_value`: When rendering a form field, and the value is empty, this value should be used as the default input if present.
   Follows the same rules as `value`.
 - `ordering` This defines the order in which form fields appear, and can be generally ignored, since the database will send the
