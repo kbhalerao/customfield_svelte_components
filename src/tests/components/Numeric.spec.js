@@ -4,6 +4,71 @@ import { render, screen } from '@testing-library/svelte';
 
 import LCCustomFieldFormField from '../../lib/components/LCCustomFieldFormField.svelte';
 
+test('renders pure numeric input', () => {
+	const numericInput = {
+		id: 198,
+		name: 'Acres',
+		field_type: 'N',
+		help_text: '',
+		default_value: null,
+		options: [],
+		required: true,
+		ordering: 999
+	};
+
+	render(LCCustomFieldFormField, {
+		props: {
+			formField: numericInput
+		}
+	});
+
+	// Check that the element exists
+	const inputElement = screen.getByRole('textbox');
+	expect(inputElement).toHaveClass('controls lc-cf-component-N');
+
+	// Check its attributes
+	expect(inputElement).toHaveAttribute('required');
+	expect(inputElement).toHaveAttribute('name', 'custom-field-198');
+	expect(inputElement).toHaveAttribute('type', 'numeric');
+
+	// Check that unit selector is NOT present
+	const unitSelectors = screen.queryAllByRole('combobox');
+	expect(unitSelectors.length).toBe(0);
+});
+
+test('renders pure numeric input with default value defined', () => {
+	const numericInput = {
+		id: 198,
+		name: 'Acres',
+		field_type: 'N',
+		help_text: '',
+		default_value: 42,
+		options: [],
+		required: true,
+		ordering: 999
+	};
+
+	render(LCCustomFieldFormField, {
+		props: {
+			formField: numericInput
+		}
+	});
+
+	// Check that the element exists
+	const inputElement = screen.getByRole('textbox');
+	expect(inputElement).toHaveClass('controls lc-cf-component-N');
+
+	// Check its attributes
+	expect(inputElement).toHaveAttribute('required');
+	expect(inputElement).toHaveAttribute('name', 'custom-field-198');
+	expect(inputElement).toHaveAttribute('type', 'numeric');
+	expect(inputElement).toHaveValue('42');
+
+	// Check that unit selector is NOT present
+	const unitSelectors = screen.queryAllByRole('combobox');
+	expect(unitSelectors.length).toBe(0);
+});
+
 test('renders physical quantity input', () => {
 	const numericInput = {
 		id: 198,

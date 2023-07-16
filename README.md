@@ -40,9 +40,8 @@ The keys in the JSON represent the following:
 - `field_type`: This can be `T` - text, `R` - radio, `C` - checkbox, `D` - date, `M`, date-time, `N` numeric or `U` user or `A` - textarea.
 - `required`: This is true or false, which can be used in form validation.
 - `help_text`: This is a prompt that can get displayed under the input as help text.
-- `options`: This is a list of objects, each containing the `name` and `ordering` of options. Options are required in the case of `radio`
-  and `checkbox`. If a `numeric` field has options, then the field is treated as a physical quantity input field, and the options are
-  considered to be units associated with the physical quantity. Options are ignored for other field types.
+- `options`: This is a list of objects, each containing the `name` and `ordering` of options. Options are required in the case of `radio` and `checkbox`. If a `numeric` field has options, then the field is treated as a physical quantity input field, and the options are considered to be units associated with the physical quantity. For the User selection field, options are provided as a list of arrays like so: `[['username', 'UserFirst UserLast"]]`.
+  Options are ignored for other field types.
 - `value`: This is the current value of the field. When creating a form object, this is blank, but when editing, it may have a value. This value is always a string (empty or otherwise), with the following exceptions:
   - If the `field_type` is a `C`, we store an array of strings, which can be empty if no options are selected.
   - If the `field_type` is `N` and no options are present, we store it as a number

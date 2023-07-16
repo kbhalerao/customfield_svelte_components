@@ -12,8 +12,10 @@
 		? formField.default_value
 		: undefined;
 	$: numeric_value =
-		formField.field_type === 'N' && formField.options.length > 0 && value
-			? Number(value[0])
+		formField.field_type === 'N' && value
+			? formField.options.length > 0
+				? Number(value[0])
+				: Number(value)
 			: undefined;
 	$: numeric_units =
 		formField.field_type === 'N' && formField.options.length > 0 && value ? value[1] : undefined;
@@ -52,7 +54,7 @@
 				><input
 					type={fieldTypes[formField.field_type]}
 					value={option.name}
-					checked={option.name === formField.value || formField.value?.indexOf(option) > -1}
+					checked={option.name === formField.value || formField.value?.includes(option.name)}
 					class={componentClass}
 					name={cfname}
 				/>{option.name}</label
@@ -73,7 +75,7 @@
 			value={numeric_value}
 			{required}
 		/>
-		{#if formField.options}
+		{#if formField.options.length}
 			<select name={cfname} id={cfid} required>
 				{#each formField.options as option}
 					<option value={option.name} selected={numeric_units === option.name}>{option.name}</option
@@ -82,9 +84,9 @@
 			</select>
 		{/if}
 	{:else if formField.field_type === 'U'}
-		<select name={cfname} id={cfid} {required}>
-			{#each formField.options as option}
-				<option value={option.name}>{option.name}</option>
+		<select name={cfname} id={cfid} {required} class={componentClass}>
+			{#each formField.options as option (option[0])}
+				<option value={option[0]}>{option[1]}</option>
 			{/each}
 		</select>
 	{:else}
