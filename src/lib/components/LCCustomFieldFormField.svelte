@@ -46,6 +46,7 @@
 			class={componentClass}
 			name={cfname}
 			value={formField.value}
+			default_value={formField.value}
 			{required}
 		/>
 	{:else if ['R', 'C'].includes(formField.field_type) && !select}
