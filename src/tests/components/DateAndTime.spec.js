@@ -11,7 +11,7 @@ test('renders simple optional date input', () => {
 		name: 'Cover Crop',
 		options: [],
 		ordering: 10,
-		required: true,
+		required: false,
 		help_text: 'What is your cover crop target planting date for this cash crop?',
 		field_type: 'D'
 	};
@@ -26,7 +26,7 @@ test('renders simple optional date input', () => {
 	expect(label).toBeInTheDocument();
 
 	// Check that the element exists
-	const inputElement = screen.getByRole('date');
+	const inputElement = screen.getByRole('textbox');
 	expect(inputElement).toBeInTheDocument();
 
 	// Check class
@@ -60,12 +60,12 @@ test('renders simple required date', () => {
 		}
 	});
 
-	const inputElement = screen.getByRole('date');
+	const inputElement = screen.getByRole('textbox');
 	// Check its attributes
 	expect(inputElement).toHaveAttribute('required');
 });
 
-test('renders text input with value', () => {
+test('renders date input with value', () => {
 	const dateInput = {
 		id: 121,
 		name: 'Cover Crop',
@@ -82,16 +82,15 @@ test('renders text input with value', () => {
 		}
 	});
 
-	const inputElement = screen.getByRole('date');
+	const inputElement = screen.getByRole('textbox');
 	// Check its attributes
 	expect(inputElement).toHaveValue('28 Jul');
 });
 
-test('renders text input with default value', () => {
+test('renders date input with default value', () => {
 	const dateInput = {
 		id: 121,
 		name: 'Cover Crop',
-		value: '28 Jul',
 		options: [],
 		ordering: 10,
 		required: true,
@@ -106,6 +105,6 @@ test('renders text input with default value', () => {
 		}
 	});
 
-	const inputElement = screen.getByRole('date');
+	const inputElement = screen.getByRole('textbox');
 	expect(inputElement).toHaveValue('28 Jul');
 });
