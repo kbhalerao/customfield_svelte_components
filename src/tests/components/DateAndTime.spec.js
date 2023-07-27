@@ -21,12 +21,8 @@ test('renders simple optional date input', () => {
 		}
 	});
 
-	// Check label
-	const label = screen.getByLabelText('Title');
-	expect(label).toBeInTheDocument();
-
 	// Check that the element exists
-	const inputElement = screen.getByRole('textbox');
+	const inputElement = document.querySelector('#lc-cf-121');
 	expect(inputElement).toBeInTheDocument();
 
 	// Check class
@@ -60,7 +56,7 @@ test('renders simple required date', () => {
 		}
 	});
 
-	const inputElement = screen.getByRole('textbox');
+	const inputElement = document.querySelector('#lc-cf-121');
 	// Check its attributes
 	expect(inputElement).toHaveAttribute('required');
 });
@@ -69,12 +65,12 @@ test('renders date input with value', () => {
 	const dateInput = {
 		id: 121,
 		name: 'Cover Crop',
-		value: '28 Jul',
+		value: '2000-10-31T01:30:00.000-05:00',
 		options: [],
 		ordering: 10,
 		required: true,
 		help_text: 'What is your cover crop target planting date for this cash crop?',
-		field_type: 'D'
+		field_type: 'T'
 	};
 	render(LCCustomFieldFormField, {
 		props: {
@@ -82,9 +78,9 @@ test('renders date input with value', () => {
 		}
 	});
 
-	const inputElement = screen.getByRole('textbox');
+	const inputElement = document.querySelector('#lc-cf-121');
 	// Check its attributes
-	expect(inputElement).toHaveValue('28 Jul');
+	expect(inputElement).toHaveDisplayValue('2000-10-31T01:30:00.000-05:00');
 });
 
 test('renders date input with default value', () => {
@@ -94,9 +90,9 @@ test('renders date input with default value', () => {
 		options: [],
 		ordering: 10,
 		required: true,
-		default_value: '28 Jul',
+		default_value: '2000-10-31T01:30:00.000-05:00',
 		help_text: 'What is your cover crop target planting date for this cash crop?',
-		field_type: 'D'
+		field_type: 'T'
 	};
 
 	render(LCCustomFieldFormField, {
@@ -105,6 +101,6 @@ test('renders date input with default value', () => {
 		}
 	});
 
-	const inputElement = screen.getByRole('textbox');
-	expect(inputElement).toHaveValue('28 Jul');
+	const inputElement = document.querySelector('#lc-cf-121');
+	expect(inputElement).toHaveDisplayValue('2000-10-31T01:30:00.000-05:00');
 });

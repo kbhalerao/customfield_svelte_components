@@ -74,7 +74,6 @@ test('renders checkbox input with default value present', () => {
 		name: 'Current/past crop',
 		field_type: 'C',
 		help_text: '',
-		value: ['Soybeans'],
 		default_value: ['Soybeans'],
 		options: [
 			{ ordering: 999, name: 'Corn' },

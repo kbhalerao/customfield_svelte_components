@@ -81,7 +81,6 @@ test('renders radio input with default value present', () => {
 		field_type: 'R',
 		help_text: 'What crop did you plant',
 		default_value: ['Other'],
-		value: ['Other'],
 		options: [
 			{ ordering: 1, name: 'Corn' },
 			{ ordering: 2, name: 'Soybeans' },

@@ -95,7 +95,6 @@ test('renders text input with default value', () => {
 		field_type: 'T',
 		help_text: 'A title for your annotation',
 		default_value: 'present',
-		value: 'present',
 		options: [],
 		required: true,
 		ordering: 1

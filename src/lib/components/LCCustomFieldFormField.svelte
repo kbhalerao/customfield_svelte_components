@@ -1,8 +1,8 @@
 <script>
 	export let formField;
 	export let select = false;
-	export let groupClass = 'lc-cf-formfield';
-	export let groupId = 'cf-form';
+	export let groupClass;
+	export let groupId;
 	$: componentClass = `controls lc-cf-component-${formField.field_type}`;
 	$: cfid = `lc-cf-${formField.id}`;
 	$: cfname = `custom-field-${formField.id}`;
@@ -34,7 +34,7 @@
 	};
 </script>
 
-<form class={groupClass} id={groupId} {autocomplete}>
+<div class={groupClass} id={groupId} {autocomplete}>
 	<label for={cfid} class="lc-cf-control-label">
 		{formField.name}{formField.required ? '*' : ''}
 	</label>
@@ -56,7 +56,9 @@
 				><input
 					type={fieldTypes[formField.field_type]}
 					value={option.name}
-					checked={option.name === formField.value || formField.value?.includes(option.name)}
+					checked={option.name === formField.value ||
+						formField.value?.includes(option.name) ||
+						formField.default_value?.includes(option.name)}
 					class={componentClass}
 					name={cfname}
 				/>{option.name}</label
@@ -95,4 +97,4 @@
 		<input type="hidden" />
 	{/if}
 	<div class="help-block">{formField.help_text}</div>
-</form>
+</div>

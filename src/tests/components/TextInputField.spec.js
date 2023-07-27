@@ -97,8 +97,7 @@ test('renders text input with default value', () => {
 		options: [],
 		required: true,
 		ordering: 1,
-		default_value: 'present',
-		value: 'present'
+		default_value: 'present'
 	};
 
 	render(LCCustomFieldFormField, {
