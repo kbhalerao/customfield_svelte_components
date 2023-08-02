@@ -30,18 +30,6 @@ test('renders simple form', () => {
 	// Check that the element exists
 	const formElement = document.querySelector('cf-form');
 
-	// expect(formElement).toBeInTheDocument();
-
-	// Check class
-	// expect(formElement).toHaveClass('lc-cf-formfield');
-
-	// Check its attributes
-	// expect(formElement).not.toHaveAttribute('required');
-	// expect(formElement).toHaveAttribute('id', 'cf-form');
-	// expect(formElement).toHaveAttribute('autocomplete', 'on');
-
-	// const help_text = screen.getByText(
-	// 	'What is your cover crop target planting date for this cash crop?'
-	// );
-	// expect(help_text).toBeInTheDocument();
+	const checkbox = screen.getAllByRole('checkbox');
+	expect(checkbox.length).toBe(3);
 });

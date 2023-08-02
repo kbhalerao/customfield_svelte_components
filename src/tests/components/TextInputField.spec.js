@@ -1,7 +1,8 @@
 // NOTE: jest-dom adds handy assertions to Jest and it is recommended, but not required.
 import '@testing-library/jest-dom';
 
-import { render, screen } from '@testing-library/svelte';
+import { render, screen, act, fireEvent } from '@testing-library/svelte';
+import jest from 'jest-mock';
 
 import LCCustomFieldFormField from '../../lib/components/LCCustomFieldFormField.svelte';
 
@@ -108,4 +109,35 @@ test('renders text input with default value', () => {
 
 	const inputElement = screen.getByRole('textbox');
 	expect(inputElement).toHaveValue('present');
+});
+
+test('editing value sets formfield value', async () => {
+	const textInput = {
+		id: 188,
+		name: 'Title',
+		field_type: 'T',
+		help_text: 'A title for your annotation',
+		options: [],
+		required: true,
+		ordering: 1,
+		default_value: 'present'
+	};
+
+	const { getByLabelText, component } = render(LCCustomFieldFormField, {
+		// store the return so we can access the component
+		props: {
+			formField: textInput
+		}
+	});
+
+	const inputElement = screen.getByRole('textbox');
+	expect(inputElement).toHaveValue('present');
+
+	// const mock = jest.fn(); // set up a mock callback function
+	// component.$on('input', mock); // listen for on:change event
+
+	await act(() => fireEvent.input(inputElement, { target: { value: 'modified' } }));
+	expect(inputElement.value).toBe('modified'); // input field value is changed
+
+	// expect(mock).toHaveBeenCalled(); q
 });

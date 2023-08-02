@@ -1,8 +1,8 @@
 <script>
 	export let formField;
 	export let select = false;
-	export let groupClass;
-	export let groupId;
+	export let groupClass = 'form-group';
+	export let groupId = 'default-id';
 	$: componentClass = `controls lc-cf-component-${formField.field_type}`;
 	$: cfid = `lc-cf-${formField.id}`;
 	$: cfname = `custom-field-${formField.id}`;
@@ -32,6 +32,10 @@
 		U: 'user',
 		A: 'textarea'
 	};
+
+	function updateValue(e) {
+		formField.value = e.target.value;
+	}
 </script>
 
 <div class={groupClass} id={groupId} {autocomplete}>
@@ -40,13 +44,16 @@
 	</label>
 
 	{#if formField.field_type === 'A'}
-		<textarea id={cfid} class={componentClass} name={cfname} {required}>{value}</textarea>
+		<textarea id={cfid} class={componentClass} name={cfname} {required} on:change={updateValue}
+			>{value}</textarea
+		>
 	{:else if ['T', 'D', 'M'].indexOf(formField.field_type) > -1}
 		<input
 			type={fieldTypes[formField.field_type]}
 			id={cfid}
 			class={componentClass}
 			name={cfname}
+			on:change={updateValue}
 			{value}
 			{required}
 		/>
