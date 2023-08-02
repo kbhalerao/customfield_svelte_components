@@ -87,3 +87,24 @@ test('renders text input with value', () => {
 	// Check its attributes
 	expect(inputElement).toHaveValue('present');
 });
+
+test('renders text input with default value', () => {
+	const textInput = {
+		id: 188,
+		name: 'Title',
+		field_type: 'T',
+		help_text: 'A title for your annotation',
+		default_value: 'present',
+		options: [],
+		required: true,
+		ordering: 1
+	};
+	render(LCCustomFieldFormField, {
+		props: {
+			formField: textInput
+		}
+	});
+
+	const inputElement = screen.getByRole('textbox');
+	expect(inputElement).toHaveValue('present');
+});

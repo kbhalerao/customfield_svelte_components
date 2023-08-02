@@ -1,11 +1,13 @@
 <script>
 	export let formField;
 	export let select = false;
-	export let groupClass = 'lc-cf-formfield';
+	export let groupClass;
+	export let groupId;
 	$: componentClass = `controls lc-cf-component-${formField.field_type}`;
 	$: cfid = `lc-cf-${formField.id}`;
 	$: cfname = `custom-field-${formField.id}`;
 	$: required = formField.required ? true : false;
+	$: autocomplete = `on`;
 	$: value = formField.value
 		? formField.value
 		: formField.default_value
@@ -32,20 +34,20 @@
 	};
 </script>
 
-<div class={groupClass}>
+<div class={groupClass} id={groupId} {autocomplete}>
 	<label for={cfid} class="lc-cf-control-label">
 		{formField.name}{formField.required ? '*' : ''}
 	</label>
 
 	{#if formField.field_type === 'A'}
-		<textarea id={cfid} class={componentClass} name={cfname} {required}>{formField.value}</textarea>
+		<textarea id={cfid} class={componentClass} name={cfname} {required}>{value}</textarea>
 	{:else if ['T', 'D', 'M'].indexOf(formField.field_type) > -1}
 		<input
 			type={fieldTypes[formField.field_type]}
 			id={cfid}
 			class={componentClass}
 			name={cfname}
-			value={formField.value}
+			{value}
 			{required}
 		/>
 	{:else if ['R', 'C'].includes(formField.field_type) && !select}
@@ -54,7 +56,9 @@
 				><input
 					type={fieldTypes[formField.field_type]}
 					value={option.name}
-					checked={option.name === formField.value || formField.value?.includes(option.name)}
+					checked={option.name === formField.value ||
+						formField.value?.includes(option.name) ||
+						formField.default_value?.includes(option.name)}
 					class={componentClass}
 					name={cfname}
 				/>{option.name}</label
