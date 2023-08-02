@@ -65,12 +65,12 @@ test('renders date input with value', () => {
 	const dateInput = {
 		id: 121,
 		name: 'Cover Crop',
-		value: '2000-10-31T01:30:00.000-05:00',
+		value: '2000-10-31',
 		options: [],
 		ordering: 10,
 		required: true,
 		help_text: 'What is your cover crop target planting date for this cash crop?',
-		field_type: 'T'
+		field_type: 'D'
 	};
 	render(LCCustomFieldFormField, {
 		props: {
@@ -80,7 +80,29 @@ test('renders date input with value', () => {
 
 	const inputElement = document.querySelector('#lc-cf-121');
 	// Check its attributes
-	expect(inputElement).toHaveDisplayValue('2000-10-31T01:30:00.000-05:00');
+	expect(inputElement).toHaveDisplayValue('2000-10-31');
+});
+
+test('renders datetime-local input with value', () => {
+	const dateInput = {
+		id: 121,
+		name: 'Cover Crop',
+		value: '2000-10-31T01:30',
+		options: [],
+		ordering: 10,
+		required: true,
+		help_text: 'What is your cover crop target planting date for this cash crop?',
+		field_type: 'M'
+	};
+	render(LCCustomFieldFormField, {
+		props: {
+			formField: dateInput
+		}
+	});
+
+	const inputElement = document.querySelector('#lc-cf-121');
+	// Check its attributes
+	expect(inputElement).toHaveDisplayValue('2000-10-31T01:30');
 });
 
 test('renders date input with default value', () => {
@@ -90,9 +112,9 @@ test('renders date input with default value', () => {
 		options: [],
 		ordering: 10,
 		required: true,
-		default_value: '2000-10-31T01:30:00.000-05:00',
+		default_value: '2000-10-31T01:30',
 		help_text: 'What is your cover crop target planting date for this cash crop?',
-		field_type: 'T'
+		field_type: 'M'
 	};
 
 	render(LCCustomFieldFormField, {
@@ -102,5 +124,5 @@ test('renders date input with default value', () => {
 	});
 
 	const inputElement = document.querySelector('#lc-cf-121');
-	expect(inputElement).toHaveDisplayValue('2000-10-31T01:30:00.000-05:00');
+	expect(inputElement).toHaveDisplayValue('2000-10-31T01:30');
 });
