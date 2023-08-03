@@ -58,7 +58,7 @@ test('renders user selector input with value defined', () => {
 
 	// Check that the element exists
 	const inputElement = screen.getByRole('combobox');
-	expect(inputElement).toHaveValue('kbhalerao');
+	expect(inputElement).toHaveValue('ashukla');
 });
 
 test('renders user selector input with default value defined', () => {
@@ -84,5 +84,5 @@ test('renders user selector input with default value defined', () => {
 
 	// Check that the element exists
 	const inputElement = screen.getByRole('combobox');
-	expect(inputElement).toHaveValue('kbhalerao');
+	expect(inputElement).toHaveValue('ashukla');
 });

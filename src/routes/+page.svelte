@@ -1,12 +1,11 @@
 <script>
-	import LcCustomFieldForm from '$lib/components/LCCustomFieldForm.svelte';
 	import LCCustomFieldForm from '$lib/components/LCCustomFieldForm.svelte';
 	import LcCustomFieldFormField from '$lib/components/LCCustomFieldFormField.svelte';
 
 	let formRadioInput = {
 		id: 114,
 		name: 'Example Radio Input',
-		value: [],
+		value: null,
 		default_value: 'Option 2',
 		options: [
 			{
@@ -65,7 +64,7 @@
 		id: 199,
 		name: 'Nitrogen',
 		field_type: 'N',
-		help_text: '',
+		help_text: 'This is a physical quantity - please select proper units',
 		default_value: null,
 		options: [
 			{ ordering: 998, name: 'lb/ac' },
@@ -87,7 +86,7 @@
 		],
 		required: true,
 		ordering: 999,
-		value: ['Other']
+		value: ['Corn', 'Other']
 	};
 
 	let selectboxInput = {
@@ -103,12 +102,12 @@
 		],
 		required: true,
 		ordering: 999,
-		value: ['Other']
+		value: ['Soybeans', 'Other']
 	};
 
 	let dateInput = {
 		id: 121,
-		name: 'Cover Crop',
+		name: 'Plant Date',
 		options: [],
 		ordering: 10,
 		required: false,
@@ -118,13 +117,27 @@
 
 	let dtInput = {
 		id: 122,
-		name: 'Cover Crop',
+		name: 'Event Time',
 		value: '2000-10-31T01:30',
 		options: [],
 		ordering: 10,
 		required: true,
 		help_text: 'What is your cover crop target planting date for this cash crop?',
 		field_type: 'M'
+	};
+
+	let userSelector = {
+		id: 156,
+		name: 'Assignee',
+		field_type: 'U',
+		help_text: '',
+		options: [
+			['kbhalerao', 'Kaustubh Bhalerao'],
+			['ashukla', 'Aditya Shukla']
+		],
+		required: true,
+		ordering: 999,
+		value: 'ashukla'
 	};
 
 	let formData = [
@@ -135,29 +148,39 @@
 		quantityInput,
 		checkboxInput,
 		dateInput,
-		dtInput
+		dtInput,
+		userSelector
 	];
 </script>
 
+<head>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+		crossorigin="anonymous"
+	/>
+</head>
+
 <h1>Example for generating a form</h1>
 
-<form class="form-class">
-	<LCCustomFieldForm bind:formData />
-	<LcCustomFieldFormField bind:formField={selectboxInput} select="true" />
-	<input type="submit" value="Submit" class="controls" />
-	<input type="button" value="Cancel" class="controls" />
-</form>
+<div class="container">
+	<form class="form-class">
+		<div class="mb-3">
+			<LCCustomFieldForm bind:formData />
+			<LcCustomFieldFormField bind:formField={selectboxInput} select="true" />
+			<input type="submit" value="Submit" class="controls" />
+			<input type="button" value="Cancel" class="controls" />
+		</div>
+	</form>
+</div>
 
-{#each formData as formField (formField.id)}
-	<p>{formField.name}: {formField.value}</p>
-{/each}
-<p>{selectboxInput.name}: {selectboxInput.value}</p>
+<div class="container">
+	{#each formData as formField (formField.id)}
+		<p>{formField.name}: {formField.value}</p>
+	{/each}
+	<p>{selectboxInput.name}: {selectboxInput.value}</p>
+</div>
 
 <style>
-	:global(.controls) {
-		margin-bottom: 0.75em;
-	}
-	:global(.help-block) {
-		margin-bottom: 1em;
-	}
 </style>

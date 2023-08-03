@@ -7,7 +7,25 @@
 	export let groupId = 'default-id';
 
 	// Generated IDs, names, and other attributes
-	const componentClass = `controls lc-cf-component-${formField.field_type}`;
+	const bsComponentClass =
+		formField.field_type === 'C'
+			? 'form-check-input'
+			: formField.field_type === 'R'
+			? 'form-check-input'
+			: 'form-control';
+	const componentClass = select
+		? `form-select controls lc-cf-component-${formField.field_type}`
+		: `${bsComponentClass} controls lc-cf-component-${formField.field_type}`;
+
+	const bsLabelClass =
+		formField.field_type === 'C'
+			? 'form-check-label'
+			: formField.field_type === 'R'
+			? 'form-check-label'
+			: 'form-label';
+	const labelClass = `lc-cf-control-label ${bsLabelClass}`;
+
+	const divClass = `${groupClass}`;
 	const cfid = `lc-cf-${formField.id}`;
 	const cfname = `custom-field-${formField.id}`;
 	const required = formField.required ? true : false;
@@ -26,7 +44,7 @@
 	// Reconcile default value with actual value
 	const setInitialValue = (f) => {
 		let val = f.value || f.default_value || '';
-		console.log({ f, val });
+		// console.log({ f, val });
 		return val;
 	};
 
@@ -76,8 +94,8 @@
 	$: updateGroupSelection(groupSelection);
 </script>
 
-<div class={groupClass} id={groupId} {autocomplete}>
-	<label for={cfid} class="lc-cf-control-label">
+<div class={divClass} id={groupId} {autocomplete}>
+	<label for={cfid} class={labelClass}>
 		{formField.name}{formField.required ? '*' : ''}
 	</label>
 
@@ -96,10 +114,11 @@
 			{required}
 		/>
 	{:else if 'C' === formField.field_type && !select}
-		{#each formField.options as option}
-			<label
-				><input
+		{#each formField.options as option, idx}
+			<div class="form-check">
+				<input
 					type="checkbox"
+					id={`${formField.id}_${idx}`}
 					value={option.name}
 					checked={option.name === formField.value ||
 						formField.value?.includes(option.name) ||
@@ -107,8 +126,9 @@
 					class={componentClass}
 					name={cfname}
 					bind:group={groupSelection}
-				/>{option.name}</label
-			>
+				/>
+				<label for={`${formField.id}_${idx}`} class={labelClass}>{option.name}</label>
+			</div>
 		{/each}
 	{:else if 'C' === formField.field_type && select}
 		<select
@@ -116,32 +136,36 @@
 			id={cfid}
 			{required}
 			on:change={updateValue}
+			class={componentClass}
 			multiple={formField.field_type === 'C'}
 		>
 			{#each formField.options as option}
-				<option value={option.name}>{option.name}</option>
+				<option value={option.name} selected={formField.value.includes(option.name)}
+					>{option.name}</option
+				>
 			{/each}
 		</select>
 	{:else if 'R' === formField.field_type && !select}
-		{#each formField.options as option}
-			<label
-				><input
+		{#each formField.options as option, idx}
+			<div class="form-check">
+				<input
 					type="radio"
 					value={option.name}
-					checked={option.name === formField.value ||
-						formField.value?.includes(option.name) ||
-						formField.default_value?.includes(option.name)}
+					id={`${formField.id}_${idx}`}
+					checked={option.name === formField.value}
 					class={componentClass}
 					name={cfname}
 					on:change={updateValue}
-				/>{option.name}</label
-			>
+				/>
+				<label for={`${formField.id}_${idx}`}>{option.name}</label>
+			</div>
 		{/each}
 	{:else if 'R' === formField.field_type && select}
 		<select
 			name={cfname}
 			id={cfid}
 			{required}
+			class={componentClass}
 			on:change={updateValue}
 			multiple={formField.field_type === 'C'}
 		>
@@ -150,31 +174,40 @@
 			{/each}
 		</select>
 	{:else if formField.field_type === 'N'}
-		<input
-			type="numeric"
-			id={cfid}
-			class={componentClass}
-			on:change={updateValue}
-			name={cfname}
-			value={numeric_value}
-			{required}
-		/>
-		{#if formField.options.length}
-			<select name={cfname} id={cfid} on:change={updateUnits} required>
-				{#each formField.options as option}
-					<option value={option.name} selected={numeric_units === option.name}>{option.name}</option
-					>
-				{/each}
-			</select>
-		{/if}
+		<div class="d-flex">
+			<input
+				type="numeric"
+				id={cfid}
+				class={componentClass}
+				on:change={updateValue}
+				name={cfname}
+				value={numeric_value}
+				{required}
+			/>
+			{#if formField.options.length}
+				<select
+					name={cfname}
+					id={cfid}
+					on:change={updateUnits}
+					class={`${componentClass} flex-grow-1`}
+					required
+				>
+					{#each formField.options as option}
+						<option value={option.name} selected={numeric_units === option.name}
+							>{option.name}</option
+						>
+					{/each}
+				</select>
+			{/if}
+		</div>
 	{:else if formField.field_type === 'U'}
 		<select name={cfname} id={cfid} {required} on:change={updateValue} class={componentClass}>
 			{#each formField.options as option (option[0])}
-				<option value={option[0]}>{option[1]}</option>
+				<option value={option[0]} selected={formField.value === option[0]}>{option[1]}</option>
 			{/each}
 		</select>
 	{:else}
 		<input type="hidden" />
 	{/if}
-	<div class="help-block">{formField.help_text}</div>
+	<div class="help-block form-text">{formField.help_text}</div>
 </div>

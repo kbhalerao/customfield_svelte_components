@@ -133,11 +133,12 @@ test('editing value sets formfield value', async () => {
 	const inputElement = screen.getByRole('textbox');
 	expect(inputElement).toHaveValue('present');
 
-	// const mock = jest.fn(); // set up a mock callback function
-	// component.$on('input', mock); // listen for on:change event
+	const mock = jest.fn(); // set up a mock callback function
+	component.$on('input', mock); // listen for on:change event
 
 	await act(() => fireEvent.input(inputElement, { target: { value: 'modified' } }));
 	expect(inputElement.value).toBe('modified'); // input field value is changed
 
-	// expect(mock).toHaveBeenCalled(); q
+	await act(() => fireEvent.change(inputElement));
+	// expect(mock).toHaveBeenCalled();
 });
