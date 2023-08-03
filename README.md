@@ -92,6 +92,26 @@ Individual form fields may also be rendered independently for more control, like
 </div>
 ```
 
+## Styling
+
+The form and fields currently use Bootstrap 5 class names for styling, (which provides some default style options).
+It also provides the following class names that can be used to customize the styling:
+
+```html
+<div class="mb-3">
+	<div class="lc-cf-formfield">
+		<label class="lc-cf-control-label"> </label>
+		<input class="controls lc-cf-component-[R|C|T...]" />
+	</div>
+</div>
+```
+
+The inputs can be styled together using the `controls` class, or you can style each component type distinctly
+using the `lc-cf-component-X` classname.
+
+The radio and checkbox widgets are nested in one more level of divs and follow the Bootstrap 5 pattern, where
+the `<label>` and `<input>` tags are siblings rather than nested.
+
 # Changelog
 
 - v0.0.2 Aug 3 2023. Bugfixes so that checkbox and multiselect are now working better.
