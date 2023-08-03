@@ -57,7 +57,8 @@
 		default_value: null,
 		options: [],
 		required: true,
-		ordering: 999
+		ordering: 999,
+		value: 12
 	};
 
 	let quantityInput = {
@@ -65,7 +66,7 @@
 		name: 'Nitrogen',
 		field_type: 'N',
 		help_text: 'This is a physical quantity - please select proper units',
-		default_value: null,
+		default_value: [25, 'kg/ha'],
 		options: [
 			{ ordering: 998, name: 'lb/ac' },
 			{ ordering: 999, name: 'kg/ha' }
