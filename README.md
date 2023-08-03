@@ -40,13 +40,13 @@ The keys in the JSON represent the following:
 - `field_type`: This can be `T` - text, `R` - radio, `C` - checkbox, `D` - date, `M`, date-time, `N` numeric or `U` user or `A` - textarea.
 - `required`: This is true or false, which can be used in form validation.
 - `help_text`: This is a prompt that can get displayed under the input as help text.
-- `options`: This is a list of objects, each containing the `name` and `ordering` of options. Options are required in the case of `radio`
-  and `checkbox`. If a `numeric` field has options, then the field is treated as a physical quantity input field, and the options are
-  considered to be units associated with the physical quantity. Options are ignored for other field types.
-- `value`: This is the current value of the field. When creating a form object, this is blank, but when editing, it may have a value.
-  This value is always a string (empty or otherwise), unless the `field_type` is a `C`, in which case it is an array of strings.
-- `default_value`: When rendering a form field, and the value is empty, this value should be used as the default input if present.
-  Follows the same rules as `value`.
+- `options`: This is a list of objects, each containing the `name` and `ordering` of options. Options are required in the case of `radio` and `checkbox`. If a `numeric` field has options, then the field is treated as a physical quantity input field, and the options are considered to be units associated with the physical quantity. For the User selection field, options are provided as a list of arrays like so: `[['username', 'UserFirst UserLast"]]`.
+  Options are ignored for other field types.
+- `value`: This is the current value of the field. When creating a form object, this is blank, but when editing, it may have a value. This value is always a string (empty or otherwise), with the following exceptions:
+  - If the `field_type` is a `C`, we store an array of strings, which can be empty if no options are selected.
+  - If the `field_type` is `N` and no options are present, we store it as a number
+  - If the `field_type` is `N` and options are present (i.e. this is a physical quantity), then we store it as an array of a number and its units as a string, e.g. [45, 'lb/ac']
+- `default_value`: When rendering a form field, and the value is empty, this value should be used as the default input if present. Follows the same rules as `value`, including the exceptions.
 - `ordering` This defines the order in which form fields appear, and can be generally ignored, since the database will send the
   fields in the proper ordering.
 
@@ -91,3 +91,28 @@ Individual form fields may also be rendered independently for more control, like
     </form>
 </div>
 ```
+
+## Styling
+
+The form and fields currently use Bootstrap 5 class names for styling, (which provides some default style options).
+It also provides the following class names that can be used to customize the styling:
+
+```html
+<div class="mb-3">
+	<div class="lc-cf-formfield">
+		<label class="lc-cf-control-label"> </label>
+		<input class="controls lc-cf-component-[R|C|T...]" />
+	</div>
+</div>
+```
+
+The inputs can be styled together using the `controls` class, or you can style each component type distinctly
+using the `lc-cf-component-X` classname.
+
+The radio and checkbox widgets are nested in one more level of divs and follow the Bootstrap 5 pattern, where
+the `<label>` and `<input>` tags are siblings rather than nested.
+
+# Changelog
+
+- v0.0.2 Aug 3 2023. Bugfixes so that checkbox and multiselect are now working better.
+- v0.0.1 Aug 2 2023. First commit
