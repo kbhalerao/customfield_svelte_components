@@ -86,7 +86,7 @@
 	}
 
 	function updateGroupSelection(g) {
-		if (formField.field_type === 'C') {
+		if (formField.field_type === 'C' && select) {
 			formField.value = g;
 		}
 	}
