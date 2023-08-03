@@ -91,3 +91,8 @@ Individual form fields may also be rendered independently for more control, like
     </form>
 </div>
 ```
+
+# Changelog
+
+- v0.0.2 Aug 3 2023. Bugfixes so that checkbox and multiselect are now working better.
+- v0.0.1 Aug 2 2023. First commit

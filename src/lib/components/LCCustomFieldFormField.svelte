@@ -77,7 +77,10 @@
 
 	// Update value on input change.
 	function updateValue(e) {
-		// handle update values. Special cases are numeric and checkbox.
+		// handle update values.
+		if (formField.field_type === 'C' && select) {
+			console.log(e.target.value);
+		}
 		setValue(e.target.value);
 	}
 
@@ -86,7 +89,7 @@
 	}
 
 	function updateGroupSelection(g) {
-		if (formField.field_type === 'C' && select) {
+		if (formField.field_type === 'C' && !select) {
 			formField.value = g;
 		}
 	}
@@ -135,9 +138,9 @@
 			name={cfname}
 			id={cfid}
 			{required}
-			on:change={updateValue}
+			bind:value={formField.value}
 			class={componentClass}
-			multiple={formField.field_type === 'C'}
+			multiple
 		>
 			{#each formField.options as option}
 				<option value={option.name} selected={formField.value.includes(option.name)}
