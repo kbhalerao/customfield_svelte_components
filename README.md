@@ -79,7 +79,7 @@ Individual form fields may also be rendered independently for more control, like
 
 ```svelte
 <script>
-    import { CustomFieldFormField } from 'customfield_svelte_components';
+    import { LCCustomFieldFormField } from 'customfield_svelte_components';
 </script>
 
 <div>
