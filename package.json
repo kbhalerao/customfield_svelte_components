@@ -1,9 +1,10 @@
 {
-	"name": "@labcore/customfield-svelte-components",
-	"version": "0.0.2",
+	"name": "@agsci/customfield-svelte-components",
+	"version": "0.0.3",
 	"license": "MIT",
 	"author": "Soil Diagnostics, Inc. <developer@soildiagnostics.com>",
 	"homepage": "https://github.com/kbhalerao/customfield_svelte_components",
+	"bugs": "https://github.com/kbhalerao/customfield_svelte_components/issues",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
