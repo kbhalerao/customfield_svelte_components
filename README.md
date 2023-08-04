@@ -62,7 +62,7 @@ In your svelte LabCore project, you will get a data structure comprising of a li
 
 ```svelte
 <script>
-	import { CustomFieldForm } from 'customfield_svelte_components';
+	import { LCCustomFieldForm } from 'customfield_svelte_components';
 </script>
 
 <div>
