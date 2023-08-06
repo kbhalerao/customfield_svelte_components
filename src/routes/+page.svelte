@@ -1,6 +1,6 @@
 <script>
 	import LCCustomFieldForm from '$lib/components/LCCustomFieldForm.svelte';
-	import LcCustomFieldFormField from '$lib/components/LCCustomFieldFormField.svelte';
+	import LCCustomFieldFormField from '$lib/components/LCCustomFieldFormField.svelte';
 
 	let formRadioInput = {
 		id: 114,
@@ -169,7 +169,7 @@
 	<form class="form-class">
 		<div class="mb-3">
 			<LCCustomFieldForm bind:formData />
-			<LcCustomFieldFormField bind:formField={selectboxInput} select="true" />
+			<LCCustomFieldFormField bind:formField={selectboxInput} select="true" />
 			<input type="submit" value="Submit" class="controls" />
 			<input type="button" value="Cancel" class="controls" />
 		</div>

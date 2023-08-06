@@ -55,19 +55,19 @@ The keys in the JSON represent the following:
 Install this library using
 
 ```
-npm i customfield_svelte_components
+npm i @agsci/customfield-svelte-components
 ```
 
 In your svelte LabCore project, you will get a data structure comprising of a list of fields like above. You can create a form with them using something like this on your svelte page:
 
 ```svelte
 <script>
-	import { LCCustomFieldForm } from 'customfield_svelte_components';
+	import { LCCustomFieldForm } from '@agsci/customfield-svelte-components';
 </script>
 
 <div>
 	<form>
-		LCCustomFieldForm bind:formData>
+		<LCCustomFieldForm bind:formData>
 		<input type="submit" />
 	</form>
 </div>
@@ -79,7 +79,7 @@ Individual form fields may also be rendered independently for more control, like
 
 ```svelte
 <script>
-    import { LCCustomFieldFormField } from 'customfield_svelte_components';
+    import { LCCustomFieldFormField } from '@agsci/customfield-svelte-components';
 </script>
 
 <div>
@@ -91,6 +91,10 @@ Individual form fields may also be rendered independently for more control, like
     </form>
 </div>
 ```
+
+## REPL
+
+Here's a live <a href="https://svelte.dev/repl/56f439bb8e06435a92c4a69ef43e54f4?version=4.1.2">example</a>
 
 ## Styling
 
@@ -114,5 +118,6 @@ the `<label>` and `<input>` tags are siblings rather than nested.
 
 # Changelog
 
+- v0.0.4 Aug 6 2023. Updated index.js to allow for proper imports into other projects.
 - v0.0.2 Aug 3 2023. Bugfixes so that checkbox and multiselect are now working better.
 - v0.0.1 Aug 2 2023. First commit
