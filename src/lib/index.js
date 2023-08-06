@@ -1,9 +1,3 @@
 // Reexport your entry components here
-import LCCustomFieldForm from "./components/LCCustomFieldForm.svelte";
-import LCCustomFieldFormField from "./components/LCCustomFieldFormField.svelte";
-
-const LCCustomFieldComponents = {
-    LCCustomFieldForm, LCCustomFieldFormField
-}
-
-export default LCCustomFieldComponents;
+export { default as LCCustomFieldForm } from "./components/LCCustomFieldForm.svelte";
+export { default as LCCustomFieldFormField } from "./components/LCCustomFieldFormField.svelte";
