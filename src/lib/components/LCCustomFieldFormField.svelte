@@ -63,7 +63,7 @@
 			: '';
 
 	// Extract multiselect / checkbox options
-	let groupSelection = formField.field_type === 'C' ? formField.value : [];
+	$: groupSelection = formField.field_type === 'C' ? formField.value : [];
 
 	function setValue(val) {
 		if (formField.field_type === 'N') {
@@ -123,9 +123,6 @@
 					type="checkbox"
 					id={`${formField.id}_${idx}`}
 					value={option.name}
-					checked={option.name === formField.value ||
-						formField.value?.includes(option.name) ||
-						formField.default_value?.includes(option.name)}
 					class={componentClass}
 					name={cfname}
 					bind:group={groupSelection}
