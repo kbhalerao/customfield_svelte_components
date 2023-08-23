@@ -118,6 +118,7 @@ the `<label>` and `<input>` tags are siblings rather than nested.
 
 # Changelog
 
+- v0.0.6 Aug 22 2023. Updated dependencies to allow installation without --force
 - v0.0.5 Aug 17 2023. Updated checkbox component to be reactive to changes in data packet.
 - v0.0.4 Aug 6 2023. Updated index.js to allow for proper imports into other projects.
 - v0.0.2 Aug 3 2023. Bugfixes so that checkbox and multiselect are now working better.
@@ -127,3 +128,4 @@ the `<label>` and `<input>` tags are siblings rather than nested.
 
 Aditya Shukla, EC Infosolutions.
 Kaustubh Bhalerao, AgSci LLC
+Chetan Bawankule, EC Infosolutions.

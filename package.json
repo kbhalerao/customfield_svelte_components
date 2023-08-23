@@ -1,6 +1,6 @@
 {
 	"name": "@agsci/customfield-svelte-components",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"license": "MIT",
 	"author": "Soil Diagnostics, Inc. <developer@soildiagnostics.com>",
 	"homepage": "https://github.com/kbhalerao/customfield_svelte_components",
@@ -31,7 +31,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^4.0.0"
+		"svelte": "^3 || ^4"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.22.9",
