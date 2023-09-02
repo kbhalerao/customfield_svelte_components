@@ -51,23 +51,24 @@
 	formField.value = setInitialValue(formField);
 
 	// Extract numerical value and units for field_type === "N"
+	if (formField.field_type === 'N') {
+		formField.value =
+			formField.value && formField.options.length > 0 ? formField.value.join(' ') : formField.value;
+	}
 	$: numeric_value =
 		formField.field_type === 'N' && formField.value
 			? formField.options.length > 0
-				? Number(formField.value[0])
+				? Number(formField.value.split(' ')[0])
 				: Number(formField.value)
 			: '';
 	$: numeric_units =
 		formField.field_type === 'N' && formField.options.length > 0 && formField.value
-			? formField.value[1]
+			? formField.value.split(' ')[1]
 			: '';
-
-	// Extract multiselect / checkbox options
-	$: groupSelection = formField.field_type === 'C' ? formField.value : [];
 
 	function setValue(val) {
 		if (formField.field_type === 'N') {
-			formField.value = formField.options.length ? [val, numeric_units] : val;
+			formField.value = formField.options.length ? [val, numeric_units].join(' ') : val;
 		} else if (formField.field_type === 'C') {
 			formField.value = val;
 		} else {
@@ -88,13 +89,12 @@
 		formField.value = [numeric_value, e.target.value];
 	}
 
-	function updateGroupSelection(g) {
+	function updateGroupSelection() {
 		if (formField.field_type === 'C' && !select) {
-			formField.value = g;
+			formField.value = formField.value && formField.value.join(', ');
 		}
 	}
-
-	$: updateGroupSelection(groupSelection);
+	onMount(updateGroupSelection);
 </script>
 
 <div class={divClass} id={groupId} {autocomplete}>
@@ -125,7 +125,8 @@
 					value={option.name}
 					class={componentClass}
 					name={cfname}
-					bind:group={groupSelection}
+					bind:group={formField.value}
+					on:change={updateGroupSelection}
 				/>
 				<label for={`${formField.id}_${idx}`} class={labelClass}>{option.name}</label>
 			</div>
