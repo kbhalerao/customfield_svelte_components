@@ -125,7 +125,9 @@
 					value={option.name}
 					class={componentClass}
 					name={cfname}
-					bind:group={formField.value}
+					checked={option.name === formField.value ||
+						formField.value?.includes(option.name) ||
+						formField.default_value?.includes(option.name)}
 					on:change={updateGroupSelection}
 				/>
 				<label for={`${formField.id}_${idx}`} class={labelClass}>{option.name}</label>
