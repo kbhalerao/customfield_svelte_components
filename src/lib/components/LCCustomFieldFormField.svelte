@@ -88,12 +88,15 @@
 	function updateUnits(e) {
 		formField.value = [numeric_value, e.target.value];
 	}
+	let groupSelection = formField.field_type === 'C' ? formField.value : [];
 
 	function updateGroupSelection() {
 		if (formField.field_type === 'C' && !select) {
+			formField.value = groupSelection;
 			formField.value = formField.value && formField.value.join(', ');
 		}
 	}
+
 	onMount(updateGroupSelection);
 </script>
 
@@ -125,9 +128,7 @@
 					value={option.name}
 					class={componentClass}
 					name={cfname}
-					checked={option.name === formField.value ||
-						formField.value?.includes(option.name) ||
-						formField.default_value?.includes(option.name)}
+					bind:group={groupSelection}
 					on:change={updateGroupSelection}
 				/>
 				<label for={`${formField.id}_${idx}`} class={labelClass}>{option.name}</label>
