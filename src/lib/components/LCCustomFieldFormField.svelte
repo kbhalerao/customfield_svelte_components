@@ -88,16 +88,6 @@
 	function updateUnits(e) {
 		formField.value = [numeric_value, e.target.value];
 	}
-	let groupSelection = formField.field_type === 'C' ? formField.value : [];
-
-	function updateGroupSelection() {
-		if (formField.field_type === 'C' && !select) {
-			formField.value = groupSelection;
-			formField.value = formField.value && formField.value.join(', ');
-		}
-	}
-
-	onMount(updateGroupSelection);
 </script>
 
 <div class={divClass} id={groupId} {autocomplete}>
@@ -128,8 +118,7 @@
 					value={option.name}
 					class={componentClass}
 					name={cfname}
-					bind:group={groupSelection}
-					on:change={updateGroupSelection}
+					bind:group={formField.value}
 				/>
 				<label for={`${formField.id}_${idx}`} class={labelClass}>{option.name}</label>
 			</div>
