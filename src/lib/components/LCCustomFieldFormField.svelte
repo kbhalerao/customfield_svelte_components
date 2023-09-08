@@ -117,7 +117,7 @@
 					id={`${formField.id}_${idx}`}
 					value={option.name}
 					class={componentClass}
-					name={`${cfname}_${idx}`}
+					name={cfname}
 					bind:group={formField.value}
 				/>
 				<label for={`${formField.id}_${idx}`} class={labelClass}>{option.name}</label>
