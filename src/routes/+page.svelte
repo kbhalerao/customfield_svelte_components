@@ -141,6 +141,17 @@
 		value: 'ashukla'
 	};
 
+	let passwordInput = {
+		id: 191,
+		name: 'Password',
+		field_type: 'P',
+		help_text: 'Enter Password',
+		options: [],
+		required: true,
+		ordering: 1,
+		default_value: 'Demo123!'
+	};
+
 	let formData = [
 		formRadioInput,
 		textInput,
@@ -150,7 +161,8 @@
 		checkboxInput,
 		dateInput,
 		dtInput,
-		userSelector
+		userSelector,
+		passwordInput
 	];
 </script>
 

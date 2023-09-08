@@ -25,7 +25,7 @@
 			: 'form-label';
 	const labelClass = `lc-cf-control-label ${bsLabelClass}`;
 
-	const divClass = `${groupClass}`;
+	const divClass = `${groupClass} position-relative`;
 	const cfid = `lc-cf-${formField.id}`;
 	const cfname = `custom-field-${formField.id}`;
 	const required = formField.required ? true : false;
@@ -38,7 +38,8 @@
 		M: 'datetime-local',
 		N: 'numeric',
 		U: 'user',
-		A: 'textarea'
+		A: 'textarea',
+		P: 'password'
 	};
 
 	// Reconcile default value with actual value
@@ -88,6 +89,11 @@
 	function updateUnits(e) {
 		formField.value = [numeric_value, e.target.value];
 	}
+
+	let show_password = false;
+	$: formField.field_type == 'P'
+		? (fieldTypes[formField.field_type] = show_password ? 'text' : 'password')
+		: '';
 </script>
 
 <div class={divClass} id={groupId} {autocomplete}>
@@ -99,7 +105,7 @@
 		<textarea id={cfid} class={componentClass} name={cfname} {required} on:change={updateValue}
 			>{formField.value}</textarea
 		>
-	{:else if ['T', 'D', 'M'].includes(formField.field_type)}
+	{:else if ['T', 'D', 'M', 'P'].includes(formField.field_type)}
 		<input
 			type={fieldTypes[formField.field_type]}
 			id={cfid}
@@ -109,6 +115,16 @@
 			value={formField.value}
 			{required}
 		/>
+		{#if ['P'].includes(formField.field_type)}
+			<div
+				class={`${componentClass} passwordField`}
+				on:click={() => (show_password = !show_password)}
+			>
+				<span class={show_password ? 'text-danger' : 'text-success'}
+					>{show_password ? 'Hide' : 'Show'}</span
+				>
+			</div>
+		{/if}
 	{:else if 'C' === formField.field_type && !select}
 		{#each formField.options as option, idx}
 			<div class="form-check">
@@ -204,3 +220,13 @@
 	{/if}
 	<div class="help-block form-text">{formField.help_text}</div>
 </div>
+
+<style>
+	.passwordField {
+		position: absolute;
+		right: 0;
+		top: 32px;
+		cursor: pointer;
+		width: 60px;
+	}
+</style>
