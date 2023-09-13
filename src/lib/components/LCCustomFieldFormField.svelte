@@ -1,5 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
+	import { create } from 'filepond';
+	import 'filepond/dist/filepond.css';
 	// Settable parameters
 	export let formField;
 	export let select = false;
@@ -25,7 +27,7 @@
 			: 'form-label';
 	const labelClass = `lc-cf-control-label ${bsLabelClass}`;
 
-	const divClass = `${groupClass}`;
+	const divClass = `${groupClass} position-relative`;
 	const cfid = `lc-cf-${formField.id}`;
 	const cfname = `custom-field-${formField.id}`;
 	const required = formField.required ? true : false;
@@ -38,7 +40,9 @@
 		M: 'datetime-local',
 		N: 'numeric',
 		U: 'user',
-		A: 'textarea'
+		A: 'textarea',
+		P: 'password',
+		F: 'file'
 	};
 
 	// Reconcile default value with actual value
@@ -88,8 +92,11 @@
 	function updateUnits(e) {
 		formField.value = [numeric_value, e.target.value];
 	}
-	let groupSelection = formField.field_type === 'C' ? formField.value : [];
 
+	let show_password = false;
+	$: formField.field_type == 'P'
+		? (fieldTypes[formField.field_type] = show_password ? 'text' : 'password')
+		: '';
 	function updateGroupSelection() {
 		if (formField.field_type === 'C' && !select) {
 			formField.value = groupSelection;
@@ -98,6 +105,16 @@
 	}
 
 	onMount(updateGroupSelection);
+
+	onMount(() => {
+		// Get a file input reference
+		const input = document.querySelector('input[type="file"]');
+
+		// Create a FilePond instance
+		create(input, {
+			storeAsFile: true
+		});
+	});
 </script>
 
 <div class={divClass} id={groupId} {autocomplete}>
@@ -109,7 +126,7 @@
 		<textarea id={cfid} class={componentClass} name={cfname} {required} on:change={updateValue}
 			>{formField.value}</textarea
 		>
-	{:else if ['T', 'D', 'M'].includes(formField.field_type)}
+	{:else if ['T', 'D', 'M', 'P'].includes(formField.field_type)}
 		<input
 			type={fieldTypes[formField.field_type]}
 			id={cfid}
@@ -119,6 +136,16 @@
 			value={formField.value}
 			{required}
 		/>
+		{#if ['P'].includes(formField.field_type)}
+			<div
+				class={`${componentClass} passwordField`}
+				on:click={() => (show_password = !show_password)}
+			>
+				<span class={show_password ? 'text-danger' : 'text-success'}
+					>{show_password ? 'Hide' : 'Show'}</span
+				>
+			</div>
+		{/if}
 	{:else if 'C' === formField.field_type && !select}
 		{#each formField.options as option, idx}
 			<div class="form-check">
@@ -128,8 +155,8 @@
 					value={option.name}
 					class={componentClass}
 					name={cfname}
-					bind:group={groupSelection}
-					on:change={updateGroupSelection}
+					{required}
+					bind:group={formField.value}
 				/>
 				<label for={`${formField.id}_${idx}`} class={labelClass}>{option.name}</label>
 			</div>
@@ -156,6 +183,7 @@
 					type="radio"
 					value={option.name}
 					id={`${formField.id}_${idx}`}
+					{required}
 					checked={option.name === formField.value}
 					class={componentClass}
 					name={cfname}
@@ -194,7 +222,7 @@
 					id={cfid}
 					on:change={updateUnits}
 					class={`${componentClass} flex-grow-1`}
-					required
+					{required}
 				>
 					{#each formField.options as option}
 						<option value={option.name} selected={numeric_units === option.name}
@@ -210,8 +238,27 @@
 				<option value={option[0]} selected={formField.value === option[0]}>{option[1]}</option>
 			{/each}
 		</select>
+	{:else if formField.field_type === 'F'}
+		<input
+			type={fieldTypes[formField.field_type]}
+			class={componentClass}
+			id={cfid}
+			name={cfname}
+			{required}
+			multiple={formField.multiple}
+		/>
 	{:else}
 		<input type="hidden" />
 	{/if}
 	<div class="help-block form-text">{formField.help_text}</div>
 </div>
+
+<style>
+	.passwordField {
+		position: absolute;
+		right: 0;
+		top: 32px;
+		cursor: pointer;
+		width: 60px;
+	}
+</style>

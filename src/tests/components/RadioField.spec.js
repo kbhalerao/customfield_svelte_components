@@ -16,7 +16,7 @@ test('renders radio input', () => {
 			{ ordering: 2, name: 'Soybeans' },
 			{ ordering: 999, name: 'Other' }
 		],
-		required: true,
+		required: false,
 		ordering: 1
 	};
 
