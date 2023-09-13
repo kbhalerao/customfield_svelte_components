@@ -155,6 +155,7 @@
 					value={option.name}
 					class={componentClass}
 					name={cfname}
+					{required}
 					bind:group={formField.value}
 				/>
 				<label for={`${formField.id}_${idx}`} class={labelClass}>{option.name}</label>
@@ -182,6 +183,7 @@
 					type="radio"
 					value={option.name}
 					id={`${formField.id}_${idx}`}
+					{required}
 					checked={option.name === formField.value}
 					class={componentClass}
 					name={cfname}
@@ -220,7 +222,7 @@
 					id={cfid}
 					on:change={updateUnits}
 					class={`${componentClass} flex-grow-1`}
-					required
+					{required}
 				>
 					{#each formField.options as option}
 						<option value={option.name} selected={numeric_units === option.name}
@@ -239,6 +241,7 @@
 	{:else if formField.field_type === 'F'}
 		<input
 			type={fieldTypes[formField.field_type]}
+			class={componentClass}
 			id={cfid}
 			name={cfname}
 			{required}

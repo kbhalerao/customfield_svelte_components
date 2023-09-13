@@ -16,7 +16,7 @@ test('renders checkbox input', () => {
 			{ ordering: 999, name: 'Soybeans' },
 			{ ordering: 999, name: 'Other' }
 		],
-		required: true,
+		required: false,
 		ordering: 999
 	};
 

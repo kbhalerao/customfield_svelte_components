@@ -144,7 +144,7 @@
 		id: 157,
 		name: 'File',
 		field_type: 'F',
-		help_text: '',
+		help_text: 'Upload file here',
 		required: false,
 		multiple: true
 	};
