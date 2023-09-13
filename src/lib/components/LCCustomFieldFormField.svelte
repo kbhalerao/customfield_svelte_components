@@ -1,5 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
+	import { create } from 'filepond';
+	import 'filepond/dist/filepond.css';
 	// Settable parameters
 	export let formField;
 	export let select = false;
@@ -39,7 +41,8 @@
 		N: 'numeric',
 		U: 'user',
 		A: 'textarea',
-		P: 'password'
+		P: 'password',
+		F: 'file'
 	};
 
 	// Reconcile default value with actual value
@@ -94,6 +97,24 @@
 	$: formField.field_type == 'P'
 		? (fieldTypes[formField.field_type] = show_password ? 'text' : 'password')
 		: '';
+	function updateGroupSelection() {
+		if (formField.field_type === 'C' && !select) {
+			formField.value = groupSelection;
+			formField.value = formField.value && formField.value.join(', ');
+		}
+	}
+
+	onMount(updateGroupSelection);
+
+	onMount(() => {
+		// Get a file input reference
+		const input = document.querySelector('input[type="file"]');
+
+		// Create a FilePond instance
+		create(input, {
+			storeAsFile: true
+		});
+	});
 </script>
 
 <div class={divClass} id={groupId} {autocomplete}>
@@ -215,6 +236,14 @@
 				<option value={option[0]} selected={formField.value === option[0]}>{option[1]}</option>
 			{/each}
 		</select>
+	{:else if formField.field_type === 'F'}
+		<input
+			type={fieldTypes[formField.field_type]}
+			id={cfid}
+			name={cfname}
+			{required}
+			multiple={formField.multiple}
+		/>
 	{:else}
 		<input type="hidden" />
 	{/if}

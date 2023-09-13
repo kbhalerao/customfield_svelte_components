@@ -140,6 +140,14 @@
 		ordering: 999,
 		value: 'ashukla'
 	};
+	let fileInput = {
+		id: 157,
+		name: 'File',
+		field_type: 'F',
+		help_text: '',
+		required: false,
+		multiple: true
+	};
 
 	let passwordInput = {
 		id: 191,
@@ -162,7 +170,8 @@
 		dateInput,
 		dtInput,
 		userSelector,
-		passwordInput
+		passwordInput,
+		fileInput
 	];
 </script>
 
