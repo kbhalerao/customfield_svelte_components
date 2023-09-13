@@ -140,6 +140,25 @@
 		ordering: 999,
 		value: 'ashukla'
 	};
+	let fileInput = {
+		id: 157,
+		name: 'File',
+		field_type: 'F',
+		help_text: 'Upload file here',
+		required: false,
+		multiple: true
+	};
+
+	let passwordInput = {
+		id: 191,
+		name: 'Password',
+		field_type: 'P',
+		help_text: 'Enter Password',
+		options: [],
+		required: true,
+		ordering: 1,
+		default_value: 'Demo123!'
+	};
 
 	let formData = [
 		formRadioInput,
@@ -150,7 +169,9 @@
 		checkboxInput,
 		dateInput,
 		dtInput,
-		userSelector
+		userSelector,
+		passwordInput,
+		fileInput
 	];
 </script>
 
