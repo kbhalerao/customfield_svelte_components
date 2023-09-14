@@ -97,6 +97,7 @@
 	$: formField.field_type == 'P'
 		? (fieldTypes[formField.field_type] = show_password ? 'text' : 'password')
 		: '';
+	let groupSelection = formField.field_type === 'C' ? formField.value : [];
 	function updateGroupSelection() {
 		if (formField.field_type === 'C' && !select) {
 			formField.value = groupSelection;
