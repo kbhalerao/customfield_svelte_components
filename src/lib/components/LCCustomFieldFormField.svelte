@@ -173,7 +173,7 @@
 			multiple
 		>
 			{#each formField.options as option}
-				<option value={option.name} selected={formField.value.includes(option.name)}
+				<option value={option.id} selected={formField.value.includes(option.name)}
 					>{option.name}</option
 				>
 			{/each}
