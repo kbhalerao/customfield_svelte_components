@@ -42,7 +42,8 @@
 		U: 'user',
 		A: 'textarea',
 		P: 'password',
-		F: 'file'
+		F: 'file',
+		E: 'email'
 	};
 
 	// Reconcile default value with actual value
@@ -127,7 +128,7 @@
 		<textarea id={cfid} class={componentClass} name={cfname} {required} on:change={updateValue}
 			>{formField.value}</textarea
 		>
-	{:else if ['T', 'D', 'M', 'P'].includes(formField.field_type)}
+	{:else if ['T', 'D', 'M', 'P', 'E'].includes(formField.field_type)}
 		<input
 			type={fieldTypes[formField.field_type]}
 			id={cfid}

@@ -160,6 +160,17 @@
 		default_value: 'Demo123!'
 	};
 
+	let emailInput = {
+		id: 192,
+		name: 'Email',
+		field_type: 'E',
+		help_text: 'Enter Email here',
+		options: [],
+		required: true,
+		ordering: 1,
+		default_value: ''
+	};
+
 	let formData = [
 		formRadioInput,
 		textInput,
@@ -171,7 +182,8 @@
 		dtInput,
 		userSelector,
 		passwordInput,
-		fileInput
+		fileInput,
+		emailInput
 	];
 </script>
 
