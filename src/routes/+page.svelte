@@ -97,13 +97,13 @@
 		help_text: '',
 		default_value: null,
 		options: [
-			{ ordering: 999, name: 'Corn' },
-			{ ordering: 999, name: 'Soybeans' },
-			{ ordering: 999, name: 'Other' }
+			{ id: 1, ordering: 999, name: 'Corn' },
+			{ id: 2, ordering: 999, name: 'Soybeans' },
+			{ id: 3, ordering: 999, name: 'Other' }
 		],
 		required: true,
 		ordering: 999,
-		value: ['Soybeans', 'Other']
+		value: [1, 2]
 	};
 
 	let dateInput = {
@@ -160,6 +160,17 @@
 		default_value: 'Demo123!'
 	};
 
+	let emailInput = {
+		id: 192,
+		name: 'Email',
+		field_type: 'E',
+		help_text: 'Enter Email here',
+		options: [],
+		required: true,
+		ordering: 1,
+		default_value: ''
+	};
+
 	let formData = [
 		formRadioInput,
 		textInput,
@@ -171,7 +182,8 @@
 		dtInput,
 		userSelector,
 		passwordInput,
-		fileInput
+		fileInput,
+		emailInput
 	];
 </script>
 
