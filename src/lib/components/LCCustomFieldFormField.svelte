@@ -42,7 +42,8 @@
 		U: 'user',
 		A: 'textarea',
 		P: 'password',
-		F: 'file'
+		F: 'file',
+		E: 'email'
 	};
 
 	// Reconcile default value with actual value
@@ -97,14 +98,6 @@
 	$: formField.field_type == 'P'
 		? (fieldTypes[formField.field_type] = show_password ? 'text' : 'password')
 		: '';
-	function updateGroupSelection() {
-		if (formField.field_type === 'C' && !select) {
-			formField.value = groupSelection;
-			formField.value = formField.value && formField.value.join(', ');
-		}
-	}
-
-	onMount(updateGroupSelection);
 
 	onMount(() => {
 		// Get a file input reference
@@ -126,7 +119,7 @@
 		<textarea id={cfid} class={componentClass} name={cfname} {required} on:change={updateValue}
 			>{formField.value}</textarea
 		>
-	{:else if ['T', 'D', 'M', 'P'].includes(formField.field_type)}
+	{:else if ['T', 'D', 'M', 'P', 'E'].includes(formField.field_type)}
 		<input
 			type={fieldTypes[formField.field_type]}
 			id={cfid}
@@ -171,7 +164,7 @@
 			multiple
 		>
 			{#each formField.options as option}
-				<option value={option.name} selected={formField.value.includes(option.name)}
+				<option value={option.id} selected={formField.value.includes(option.name)}
 					>{option.name}</option
 				>
 			{/each}
