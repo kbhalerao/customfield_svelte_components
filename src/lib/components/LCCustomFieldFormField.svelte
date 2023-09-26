@@ -56,24 +56,20 @@
 	formField.value = setInitialValue(formField);
 
 	// Extract numerical value and units for field_type === "N"
-	if (formField.field_type === 'N') {
-		formField.value =
-			formField.value && formField.options.length > 0 ? formField.value.join(' ') : formField.value;
-	}
 	$: numeric_value =
 		formField.field_type === 'N' && formField.value
 			? formField.options.length > 0
-				? Number(formField.value.split(' ')[0])
+				? Number(formField.value[0])
 				: Number(formField.value)
 			: '';
 	$: numeric_units =
 		formField.field_type === 'N' && formField.options.length > 0 && formField.value
-			? formField.value.split(' ')[1]
+			? formField.value[1]
 			: '';
 
 	function setValue(val) {
 		if (formField.field_type === 'N') {
-			formField.value = formField.options.length ? [val, numeric_units].join(' ') : val;
+			formField.value = formField.options.length ? [val, numeric_units] : val;
 		} else if (formField.field_type === 'C') {
 			formField.value = val;
 		} else {
