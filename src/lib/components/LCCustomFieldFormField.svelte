@@ -81,9 +81,6 @@
 	// Update value on input change.
 	function updateValue(e) {
 		// handle update values.
-		if (formField.field_type === 'C' && select) {
-			console.log(e.target.value);
-		}
 		setValue(e.target.value);
 	}
 
@@ -122,7 +119,7 @@
 			id={cfid}
 			class={componentClass}
 			name={cfname}
-			on:change={updateValue}
+			on:input={updateValue}
 			value={formField.value}
 			{required}
 		/>
