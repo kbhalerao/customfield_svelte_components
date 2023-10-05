@@ -119,7 +119,7 @@
 			id={cfid}
 			class={componentClass}
 			name={cfname}
-			on:input={updateValue}
+			on:change={updateValue}
 			value={formField.value}
 			{required}
 		/>
