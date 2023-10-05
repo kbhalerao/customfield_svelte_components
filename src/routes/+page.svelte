@@ -61,6 +61,18 @@
 		value: 12
 	};
 
+	let numberInput = {
+		id: 1989,
+		name: 'Price/Acres',
+		field_type: 'NU',
+		help_text: '',
+		default_value: null,
+		options: [],
+		required: true,
+		ordering: 999,
+		value: 122
+	};
+
 	let quantityInput = {
 		id: 199,
 		name: 'Nitrogen',
@@ -177,6 +189,7 @@
 		textAreaInput,
 		numericInput,
 		quantityInput,
+		numberInput,
 		checkboxInput,
 		dateInput,
 		dtInput,
