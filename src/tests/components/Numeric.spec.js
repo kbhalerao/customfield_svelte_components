@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/svelte';
 
 import LCCustomFieldFormField from '../../lib/components/LCCustomFieldFormField.svelte';
 
-test('renders pure numeric input', () => {
+test('renders pure number input', () => {
 	const numericInput = {
 		id: 198,
 		name: 'Acres',
@@ -23,20 +23,20 @@ test('renders pure numeric input', () => {
 	});
 
 	// Check that the element exists
-	const inputElement = screen.getByRole('textbox');
+	const inputElement = document.getElementById(`lc-cf-${numericInput.id}`);
 	expect(inputElement).toHaveClass('controls lc-cf-component-N');
 
 	// Check its attributes
 	expect(inputElement).toHaveAttribute('required');
 	expect(inputElement).toHaveAttribute('name', 'custom-field-198');
-	expect(inputElement).toHaveAttribute('type', 'numeric');
+	expect(inputElement).toHaveAttribute('type', 'number');
 
 	// Check that unit selector is NOT present
 	const unitSelectors = screen.queryAllByRole('combobox');
 	expect(unitSelectors.length).toBe(0);
 });
 
-test('renders pure numeric input with default value defined', () => {
+test('renders pure number input with default value defined', () => {
 	const numericInput = {
 		id: 198,
 		name: 'Acres',
@@ -55,14 +55,15 @@ test('renders pure numeric input with default value defined', () => {
 	});
 
 	// Check that the element exists
-	const inputElement = screen.getByRole('textbox');
+	const inputElement = document.getElementById(`lc-cf-${numericInput.id}`);
+
 	expect(inputElement).toHaveClass('controls lc-cf-component-N');
 
 	// Check its attributes
 	expect(inputElement).toHaveAttribute('required');
 	expect(inputElement).toHaveAttribute('name', 'custom-field-198');
-	expect(inputElement).toHaveAttribute('type', 'numeric');
-	expect(inputElement).toHaveValue('42');
+	expect(inputElement).toHaveAttribute('type', 'number');
+	expect(inputElement).toHaveValue(42);
 
 	// Check that unit selector is NOT present
 	const unitSelectors = screen.queryAllByRole('combobox');
@@ -91,13 +92,14 @@ test('renders physical quantity input', () => {
 	});
 
 	// Check that the element exists
-	const inputElement = screen.getByRole('textbox');
+	const inputElement = document.getElementById(`lc-cf-${numericInput.id}`);
+
 	expect(inputElement).toHaveClass('controls lc-cf-component-N');
 
 	// Check its attributes
 	expect(inputElement).toHaveAttribute('required');
 	expect(inputElement).toHaveAttribute('name', 'custom-field-198');
-	expect(inputElement).toHaveAttribute('type', 'numeric');
+	expect(inputElement).toHaveAttribute('type', 'number');
 
 	// Check that unit selector is present
 	const unitSelector = screen.getByRole('combobox');
@@ -130,8 +132,9 @@ test('renders physical quantity with value present', () => {
 	});
 
 	// Check that the element exists
-	const inputElement = screen.getByRole('textbox');
-	expect(inputElement).toHaveValue('140');
+	const inputElement = document.getElementById(`lc-cf-${numericInput.id}`);
+
+	expect(inputElement).toHaveValue(140);
 
 	const unitSelector = screen.getByRole('combobox');
 	expect(unitSelector).toHaveValue('lb/ac');
