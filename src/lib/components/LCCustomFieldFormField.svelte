@@ -38,7 +38,7 @@
 		C: 'checkbox',
 		D: 'date',
 		M: 'datetime-local',
-		N: 'numeric',
+		N: 'number',
 		U: 'user',
 		A: 'textarea',
 		P: 'password',
@@ -80,9 +80,6 @@
 	// Update value on input change.
 	function updateValue(e) {
 		// handle update values.
-		if (formField.field_type === 'C' && select) {
-			console.log(e.target.value);
-		}
 		setValue(e.target.value);
 	}
 
@@ -197,7 +194,7 @@
 	{:else if formField.field_type === 'N'}
 		<div class="d-flex">
 			<input
-				type="numeric"
+				type="number"
 				id={cfid}
 				class={componentClass}
 				on:change={updateValue}
