@@ -9,7 +9,7 @@ The data structure for a LabCore `customfield` looks like this:
 	"id": 114,
 	"name": "Name of CustomField",
 	"value": [],
-	"default_value": "text of default",
+	"default_value": "text of default, see below",
 	"options": [
 		{
 			"name": "Option 1",
