@@ -70,7 +70,7 @@ test('renders pure number input with default value defined', () => {
 	expect(unitSelectors.length).toBe(0);
 });
 
-test('renders physical quantity input', () => {
+test('renders physical quantity input - no default', () => {
 	const numericInput = {
 		id: 198,
 		name: 'Nitrogen',
@@ -107,6 +107,53 @@ test('renders physical quantity input', () => {
 
 	const options = screen.getAllByRole('option');
 	expect(options.length).toBe(2);
+
+	// Check input is blank
+	expect(inputElement).toHaveValue(null);
+	expect(unitSelector).toHaveValue('');
+});
+
+test('renders physical quantity input - with default', () => {
+	const numericInput = {
+		id: 198,
+		name: 'Nitrogen',
+		field_type: 'N',
+		help_text: '',
+		default_value: [200.0, 'lb/ac'],
+		options: [
+			{ ordering: 998, name: 'lb/ac' },
+			{ ordering: 999, name: 'kg/ha' }
+		],
+		required: true,
+		ordering: 999
+	};
+
+	render(LCCustomFieldFormField, {
+		props: {
+			formField: numericInput
+		}
+	});
+
+	// Check that the element exists
+	const inputElement = document.getElementById(`lc-cf-${numericInput.id}`);
+
+	expect(inputElement).toHaveClass('controls lc-cf-component-N');
+
+	// Check its attributes
+	expect(inputElement).toHaveAttribute('required');
+	expect(inputElement).toHaveAttribute('name', 'custom-field-198');
+	expect(inputElement).toHaveAttribute('type', 'number');
+
+	// Check that unit selector is present
+	const unitSelector = screen.getByRole('combobox');
+	expect(unitSelector).toHaveAttribute('required');
+
+	const options = screen.getAllByRole('option');
+	expect(options.length).toBe(2);
+
+	// Check default value is used
+	expect(inputElement).toHaveValue(200);
+	expect(unitSelector).toHaveValue('lb/ac');
 });
 
 test('renders physical quantity with value present', () => {

@@ -210,7 +210,7 @@
 					class={`${componentClass} flex-grow-1`}
 					{required}
 				>
-					<option value="Select" selected disabled hidden>Select</option>
+					<option value="" selected disabled hidden>Select units</option>
 					{#each formField.options as option}
 						<option value={option.name} selected={numeric_units === option.name}
 							>{option.name}</option

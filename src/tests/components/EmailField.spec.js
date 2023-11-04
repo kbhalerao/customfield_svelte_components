@@ -46,7 +46,7 @@ test('renders simple optional text input', () => {
 test('test edit email input', async () => {
 	function isEmailValid(email) {
 		const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-		console.log('isEmailValid', email, regex.test(email));
+		// console.log('isEmailValid', email, regex.test(email));
 		return regex.test(email);
 	}
 	const emailInput = {
