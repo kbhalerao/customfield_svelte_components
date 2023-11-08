@@ -123,6 +123,8 @@
 			{required}
 		/>
 		{#if ['P'].includes(formField.field_type)}
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div
 				class={`${componentClass} passwordField`}
 				on:click={() => (show_password = !show_password)}
@@ -209,6 +211,7 @@
 					on:change={updateUnits}
 					class={`${componentClass} flex-grow-1`}
 					{required}
+					value={numeric_units}
 				>
 					<option value="" selected disabled hidden>Select units</option>
 					{#each formField.options as option}

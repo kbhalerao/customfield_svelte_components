@@ -60,10 +60,21 @@
 		ordering: 999,
 		value: 12
 	};
-
+	let quantityInputNoDefault = {
+		id: 197,
+		name: 'Nitrogen - no default',
+		field_type: 'N',
+		help_text: 'This is a physical quantity - please select proper units',
+		options: [
+			{ ordering: 998, name: 'lb/ac' },
+			{ ordering: 999, name: 'kg/ha' }
+		],
+		required: true,
+		ordering: 999
+	};
 	let quantityInput = {
 		id: 199,
-		name: 'Nitrogen',
+		name: 'Nitrogen with default units',
 		field_type: 'N',
 		help_text: 'This is a physical quantity - please select proper units',
 		default_value: [25, 'kg/ha'],
@@ -176,6 +187,7 @@
 		textInput,
 		textAreaInput,
 		numericInput,
+		quantityInputNoDefault,
 		quantityInput,
 		checkboxInput,
 		dateInput,
