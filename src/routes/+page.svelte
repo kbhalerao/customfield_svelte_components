@@ -60,6 +60,18 @@
 		ordering: 999,
 		value: 12
 	};
+
+	let numericInput2 = {
+		id: 198,
+		name: 'Acres Duplicated',
+		field_type: 'N',
+		help_text: '',
+		default_value: null,
+		options: [],
+		required: true,
+		ordering: 999,
+		value: 24
+	};
 	let quantityInputNoDefault = {
 		id: 197,
 		name: 'Nitrogen - no default',
@@ -187,6 +199,7 @@
 		textInput,
 		textAreaInput,
 		numericInput,
+		numericInput2,
 		quantityInputNoDefault,
 		quantityInput,
 		checkboxInput,
@@ -222,7 +235,7 @@
 </div>
 
 <div class="container">
-	{#each formData as formField (formField.id)}
+	{#each formData as formField, idx (idx)}
 		<p>{formField.name}: {formField.value}</p>
 	{/each}
 	<p>{selectboxInput.name}: {selectboxInput.value}</p>
