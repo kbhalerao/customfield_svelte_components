@@ -223,7 +223,14 @@
 			{/if}
 		</div>
 	{:else if formField.field_type === 'U'}
-		<select name={cfname} id={cfid} {required} on:change={updateValue} class={componentClass}>
+		<select
+			name={cfname}
+			id={cfid}
+			{required}
+			on:change={updateValue}
+			value={formField.value}
+			class={componentClass}
+		>
 			<option value="Select" selected disabled hidden>Select</option>
 			{#each formField.options as option (option[0])}
 				<option value={option[0]} selected={formField.value === option[0]}>{option[1]}</option>

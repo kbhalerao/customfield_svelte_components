@@ -4,6 +4,6 @@
 	$: groupClass = 'lc-cf-formfield';
 </script>
 
-{#each formData as formField (formField.id)}
+{#each formData as formField, idx (idx)}
 	<LCCustomFieldFormField {groupClass} bind:formField />
 {/each}

@@ -1,6 +1,6 @@
 {
 	"name": "@agsci/customfield-svelte-components",
-	"version": "0.0.15",
+	"version": "0.0.16",
 	"license": "MIT",
 	"author": "Soil Diagnostics, Inc. <developer@soildiagnostics.com>",
 	"homepage": "https://github.com/kbhalerao/customfield_svelte_components",
