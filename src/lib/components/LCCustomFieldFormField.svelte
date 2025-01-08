@@ -12,7 +12,7 @@
 	const bsComponentClass =
 		formField.field_type === 'C'
 			? 'form-check-input'
-			: formField.field_type === 'R'
+			: formField.field_type && !formField.dropdown === 'R'
 			? 'form-check-input'
 			: 'form-control';
 	const componentClass = select
@@ -22,7 +22,7 @@
 	const bsLabelClass =
 		formField.field_type === 'C'
 			? 'form-check-label'
-			: formField.field_type === 'R'
+			: formField.field_type && !formField.dropdown === 'R'
 			? 'form-check-label'
 			: 'form-label';
 	const labelClass = `lc-cf-control-label ${bsLabelClass}`;
@@ -164,7 +164,7 @@
 				>
 			{/each}
 		</select>
-	{:else if 'R' === formField.field_type && !select}
+	{:else if 'R' === formField.field_type && !select && !formField.dropdown}
 		{#each formField.options as option, idx}
 			<div class="form-check">
 				<input
@@ -180,7 +180,7 @@
 				<label for={`${formField.id}_${idx}`}>{option.name}</label>
 			</div>
 		{/each}
-	{:else if 'R' === formField.field_type && select}
+	{:else if 'R' === formField.field_type && select && !formField.dropdown}
 		<select
 			name={cfname}
 			id={cfid}
@@ -191,6 +191,21 @@
 		>
 			{#each formField.options as option}
 				<option value={option.name}>{option.name}</option>
+			{/each}
+		</select>
+	{:else if 'R' === formField.field_type && !select && formField.dropdown}
+		<select
+			name={cfname}
+			id={cfid}
+			{required}
+			on:change={updateValue}
+			value={formField.value}
+			class={componentClass}
+		>
+			<option value="Select" selected disabled hidden>Select</option>
+			{#each formField.options as option}
+				<option value={option.name} selected={formField.value === option.name}>{option.name}</option
+				>
 			{/each}
 		</select>
 	{:else if formField.field_type === 'N'}
