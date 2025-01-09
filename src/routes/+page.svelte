@@ -194,6 +194,32 @@
 		default_value: ''
 	};
 
+	let dropdownInput = {
+		id: 193,
+		name: 'Example Dropdown Input',
+		value: null,
+		default_value: 'Option 2',
+		options: [
+			{
+				name: 'Option 1',
+				ordering: 1
+			},
+			{
+				name: 'Option 2',
+				ordering: 2
+			},
+			{
+				name: 'Option 3',
+				ordering: 3
+			}
+		],
+		ordering: 4,
+		required: true,
+		help_text: 'Help text - default value chosen is `Option 2`',
+		field_type: 'R',
+		dropdown: true
+	};
+
 	let formData = [
 		formRadioInput,
 		textInput,
@@ -208,7 +234,8 @@
 		userSelector,
 		passwordInput,
 		fileInput,
-		emailInput
+		emailInput,
+		dropdownInput
 	];
 </script>
 
