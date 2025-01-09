@@ -12,7 +12,7 @@
 	const bsComponentClass =
 		formField.field_type === 'C'
 			? 'form-check-input'
-			: formField.field_type && !formField.dropdown === 'R'
+			: formField.field_type === 'R' && !formField.dropdown
 			? 'form-check-input'
 			: 'form-control';
 	const componentClass = select
@@ -22,7 +22,7 @@
 	const bsLabelClass =
 		formField.field_type === 'C'
 			? 'form-check-label'
-			: formField.field_type && !formField.dropdown === 'R'
+			: formField.field_type === 'R' && !formField.dropdown
 			? 'form-check-label'
 			: 'form-label';
 	const labelClass = `lc-cf-control-label ${bsLabelClass}`;
